@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brite Labs Headcount — Conditions-Based Planning Memo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --navy: #1a2332;
+    --navy-light: #2a3a4f;
+    --gold: #c9962b;
+    --gold-light: #e8c875;
+    --gold-bg: #fdf8ef;
+    --cream: #faf8f5;
+    --warm-gray: #f5f3f0;
+    --text: #2d2d2d;
+    --text-light: #6b7280;
+    --text-muted: #9ca3af;
+    --border: #e5e2dd;
+    --green: #2d8a56;
+    --green-bg: #f0f9f4;
+    --red: #c23b22;
+    --red-bg: #fef2f0;
+    --blue: #2563eb;
+    --blue-bg: #eff6ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  @media print {
+    body { font-size: 11px; }
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+    .page { box-shadow: none; margin: 0; padding: 40px 50px; max-width: none; }
+    @page { margin: 20mm 15mm; size: letter; }
+  }
+
+  .page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 60px 60px;
+  }
+
+  /* Cover / Title */
+  .cover {
+    text-align: center;
+    padding: 80px 40px 60px;
+    border-bottom: 3px solid var(--navy);
+    margin-bottom: 40px;
+  }
+  .cover-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .cover h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .cover-subtitle {
+    font-size: 16px;
+    color: var(--text-light);
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+  .cover-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 48px;
+    margin-bottom: 20px;
+  }
+  .section-num {
+    background: var(--navy);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy-light);
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  p { margin-bottom: 12px; }
+
+  /* Callout boxes */
+  .callout {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .callout-insight {
+    background: var(--gold-bg);
+    border-left: 4px solid var(--gold);
+  }
+  .callout-insight .callout-title { color: var(--gold); }
+  .callout-key {
+    background: var(--navy);
+    color: #fff;
+    border-left: 4px solid var(--gold);
+  }
+  .callout-key .callout-title { color: var(--gold-light); }
+  .callout-key strong { color: var(--gold-light); }
+  .callout-risk {
+    background: var(--red-bg);
+    border-left: 4px solid var(--red);
+  }
+  .callout-risk .callout-title { color: var(--red); }
+  .callout-rec {
+    background: var(--green-bg);
+    border-left: 4px solid var(--green);
+  }
+  .callout-rec .callout-title { color: var(--green); }
+  .callout-note {
+    background: var(--blue-bg);
+    border-left: 4px solid var(--blue);
+  }
+  .callout-note .callout-title { color: var(--blue); }
+  .callout-title {
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 12px;
+  }
+  th {
+    background: var(--navy);
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--warm-gray); }
+  .table-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* Condition cards (for Section 2) */
+  .condition-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+  .condition-card.middle {
+    border-color: var(--gold);
+    background: var(--gold-bg);
+  }
+  .condition-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .condition-card.middle .condition-label { color: var(--gold); }
+  .condition-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .condition-meta {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .condition-signal {
+    background: rgba(0,0,0,0.04);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text);
+    margin-top: 10px;
+  }
+  .condition-card.middle .condition-signal { background: rgba(255,255,255,0.6); }
+  .condition-signal strong { color: var(--navy); }
+
+  /* Role outlines (Section 3) */
+  .role-outline {
+    margin: 16px 0;
+    padding: 14px 18px;
+    background: var(--warm-gray);
+    border-radius: 8px;
+    border-left: 4px solid var(--navy-light);
+  }
+  .role-outline .role-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .role-outline p {
+    font-size: 13px;
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+  .role-outline.collin { border-left-color: var(--gold); background: var(--gold-bg); }
+  .role-outline.collin .role-name { color: var(--gold); }
+
+  .condition-block {
+    margin: 32px 0;
+  }
+  .condition-block h3 {
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 8px;
+  }
+
+  /* Open question list (Section 4) */
+  .question-group {
+    margin: 20px 0;
+  }
+  .question-group-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .question {
+    margin-bottom: 14px;
+    padding-left: 28px;
+    position: relative;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .question-number {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .question strong { color: var(--navy); }
+
+  .deferred-list {
+    background: var(--warm-gray);
+    padding: 18px 22px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  .deferred-list .deferred-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .deferred-list ul { padding-left: 18px; margin: 0; }
+  .deferred-list li {
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+  .deferred-list li strong { color: var(--navy); }
+
+  /* Lists */
+  ul, ol { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; font-size: 13px; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  strong { color: var(--navy); }
+
+  /* Status pill */
+  .status-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: var(--gold-bg);
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* Attendee chips */
+  .attendees {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .attendee {
+    background: var(--warm-gray);
+    border-radius: 16px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover no-break">
+  <div class="cover-label">Brite Labs — Operations Planning</div>
+  <h1>Brite Labs Headcount<br>Conditions-Based Planning</h1>
+  <div class="cover-subtitle">Discussion document for the 2026 leadership brainstorm</div>
+  <div class="cover-meta">
+    Authored by Collin Campbell &nbsp;|&nbsp; 2026-05-13<br>
+    <span class="status-pill">Draft for brainstorm</span>
+  </div>
+</div>
+
+<!-- FRAMING -->
+<h2>Framing</h2>
+
+<p>We have a 2026 plan that targets ~$14M Brite Nites + ~$2M Brite Labs = ~$16M install-season revenue. The Labs side is the wildcard — sales pipeline confidence varies, the operational model is still maturing, and we haven't formally planned what the org looks like under different Labs outcomes.</p>
+
+<p>This memo lays out the data inquiries we need to resolve and a rough outline of what the 2026 season looks like for each of you under three Labs sales conditions:</p>
+
+<ul>
+  <li><strong>Condition 1 — Labs doesn't scale.</strong> Sales succeeds at Nites but Labs revenue lands at near zero ($0–0.5M). Most projects route through Nites residential and Tier C commercial. Labs ops contracts.</li>
+  <li><strong>Condition 2 — Plan hits.</strong> Current 2026 plan baseline. ~$14M Nites + ~$2M Labs. Labs at ~12% mix. ~20 Labs projects (~50/50 between Tier A "full production" and Tier B "specialty pop-ups").</li>
+  <li><strong>Condition 3 — Labs grows aggressively.</strong> Sales overperforms on Labs specifically — Gaylord expansion, municipal RFP wins, more Tier B closes. Labs at 20–25% mix ($3–4M). Nites side roughly steady.</li>
+</ul>
+
+<p>The goal of this meeting is to (a) align on the data we need to pull to make this model decision-useful and (b) sketch how each of our roles shifts under each condition — so we know what to plan for, what to hedge against, and what to leave open until the season tells us which condition we're in.</p>
+
+<h4>Meeting attendees</h4>
+<div class="attendees">
+  <span class="attendee">Collin Campbell</span>
+  <span class="attendee">Holden Halford</span>
+  <span class="attendee">Jaime Lyons</span>
+  <span class="attendee">Rainer Owens</span>
+  <span class="attendee">Michael Menendez</span>
+</div>
+
+<hr class="divider">
+
+<!-- SECTION 1 -->
+<div class="section-header">
+  <div class="section-num">1</div>
+  <div class="section-label">Data Inquiries</div>
+</div>
+<h2>What the Model Needs</h2>
+
+<p>The headcount model is only as good as the data feeding it. Below is what the model needs, what we have today, and what's still open.</p>
+
+<h3>1.A — The data the model depends on</h3>
+
+<p>The framework is built on a small set of inputs:</p>
+
+<ul>
+  <li><strong>Per-crew throughput</strong> — $/crew/day, $/crew/season for Brite Nites exterior holiday work. Calibrates the formula for how much revenue each Nites field crew produces.</li>
+  <li><strong>Labs project pipeline detail</strong> — project count, average duration by tier, geographic distribution. Drives the concurrency-based math for Labs supervisor demand.</li>
+  <li><strong>Mix of revenue by tier</strong> — what portion of total sales is Tier A (full production, Labs Sup dedicated), Tier B (specialty commercial, Labs Sup required), Tier C (straightforward commercial, Nites motion).</li>
+  <li><strong>Pipeline-stage forecasts</strong> — committed-deals-only and full-weighted-pipeline revenue, by record type and territory, so the model can output both a "floor" and "ceiling" headcount estimate.</li>
+</ul>
+
+<h3>1.B — Where each input lives</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:23%">Input</th>
+      <th style="width:18%">Source system</th>
+      <th style="width:36%">Status</th>
+      <th style="width:23%">Whose visibility helps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Per-crew daily / weekly / seasonal revenue (Nites exterior)</td>
+      <td>Brite Base (FSM, renaming from BriteNow)</td>
+      <td>Per-job data exists; <strong>no aggregated landing page</strong>. Aggregation requires a dashboard, periodic export, or hand-pull.</td>
+      <td>Michael's operational view; Holden's hiring-funnel side</td>
+    </tr>
+    <tr>
+      <td>Productive days per crew per season</td>
+      <td>Brite Base</td>
+      <td>Derivable from current state with a query</td>
+      <td>Michael's read on utilization gaps</td>
+    </tr>
+    <tr>
+      <td>Labs project tracking (count, duration, status)</td>
+      <td>Brite Base going forward; today not fully systematized</td>
+      <td>Labs ops flow still speculative; project-level data is informal</td>
+      <td>Rainer's pipeline view + Collin's ops view</td>
+    </tr>
+    <tr>
+      <td>Noel Decor / interior reporting</td>
+      <td>Brite Base presumed; workflow unclear</td>
+      <td>Reporting state is messy; Noel handles its own hiring as a somewhat-separate entity</td>
+      <td>Jaime's broader view of Noel state</td>
+    </tr>
+    <tr>
+      <td>Pipeline forecast (stage × record type × territory × install date)</td>
+      <td>Salesforce</td>
+      <td>Source exists; integration to the headcount calculator is yet to be built</td>
+      <td>Jaime + Rainer (with Salesforce admin)</td>
+    </tr>
+    <tr>
+      <td>Tier A/B/C classification per deal</td>
+      <td>Salesforce field — does not exist today</td>
+      <td>Calculator can infer from deal value bands as a v1 fallback; explicit tagging is cleaner long-term</td>
+      <td>Group decision; Rainer + sales operations</td>
+    </tr>
+    <tr>
+      <td>Per-territory Labs revenue distribution</td>
+      <td>Mixed (Salesforce records + Rainer's pipeline knowledge)</td>
+      <td>Default proposal: concentrated in FL, EC, NorCal hubs + AZ via HLC partnership</td>
+      <td>Rainer's pipeline view</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>1.C — Open data decisions for the meeting</h3>
+
+<p>These don't have to be locked at the brainstorm, but they should be on the agenda. Everything below is a group discussion item — individuals bring perspective from their domain, the call gets made together.</p>
+
+<ol>
+  <li><strong>Brite Base aggregation path.</strong> Three options: build a dashboard inside Brite Base for per-crew revenue (TM-useful side benefit, heaviest lift); periodic CSV export refreshed quarterly (cheapest viable); hand-feed constants (cheapest, but drifts). For v1 the leaning is periodic export — but who builds and owns it is open.</li>
+  <li><strong>Salesforce-to-calculator integration shape.</strong> Weekly export of every active deal with (record type, stage, probability weight, contract value, territory, expected install date) is the most flexible data shape. The calculator aggregates whatever slice it needs. Need to align on Salesforce admin capacity and timeline.</li>
+  <li><strong>Tier tagging at deal creation.</strong> Should AEs add an explicit Tier A/B/C field on Labs deals at quote time, or should the calculator infer tier from deal value bands ($100K+ = A, $20–100K = B, &lt;$20K = C)? Tagging is cleaner; inferring is faster to launch. Worth a group conversation.</li>
+  <li><strong>Noel Decor reporting maturity.</strong> Current state of Noel Decor job logging in Brite Base is unclear, and may need investment before the interior side of the model can be calibrated. Group needs to align on whether this gets investment now or sits as a known gap.</li>
+  <li><strong>Labs project pipeline visibility.</strong> Even rough numbers against the 2026 pipeline — committed vs probable vs stretch projects, with tier classification and territory — would ground the concurrency model better than the current placeholders. Group to discuss the right level of detail to commit to.</li>
+  <li><strong>Deferred to a future meeting:</strong> Per-territory layer (each of 14 territories has its own capacity and headcount needs — adds a third dimension to the model after the general framework is locked); permanent smart lighting installs (bracketed as a separate entity per earlier discussion); equipment fleet planning (MEWPs, scissor lifts, booms — capex scales with Labs Tier A/B growth and deserves its own workstream).</li>
+</ol>
+
+<hr class="divider">
+
+<!-- SECTION 2 -->
+<div class="section-header">
+  <div class="section-num">2</div>
+  <div class="section-label">Sales-Success Conditions</div>
+</div>
+<h2>The Three Conditions</h2>
+
+<p>The 2026 plan calls for ~$16M install-season revenue split as ~$14M Nites + ~$2M Labs. The Nites side is well-understood and reasonably predictable. <strong>Labs is the variable.</strong> The three conditions below define what range of Labs outcomes we want the org plan to handle.</p>
+
+<p>The conditions are not equally likely. The middle one is the plan-hits scenario; the others are downside and upside contingencies for the Labs portion specifically. Nites revenue stays roughly steady across all three.</p>
+
+<div class="condition-card">
+  <div class="condition-label">Condition 1 · Downside</div>
+  <div class="condition-title">Labs Doesn't Scale</div>
+  <div class="condition-meta">
+    Sales succeeds at the Nites side, but the Labs pipeline doesn't convert at the expected rate. Labs revenue lands at near zero ($0–0.5M, ~0–3% mix). Most commercial work routes through Tier C — straightforward outdoor lighting on commercial sites, executed by Nites motion. A handful of Tier B pop-ups may still close opportunistically but Tier A full-production work (Gaylord-scale) doesn't materialize.
+  </div>
+  <p style="font-size:13px; margin-bottom:8px;"><strong>What this looks like in the field:</strong> ~5 small Labs jobs all season. No need for a dedicated Labs producer hire. Existing leadership (Collin, Rainer, Erwin, AM backup) easily covers what little Labs supervision is needed.</p>
+  <div class="condition-signal">
+    <strong>Signal you'd see by:</strong> Late September. If the Tier A pipeline is empty heading into late September and the bar/restaurant Tier B inbound hasn't materialized, this is the condition we're operating in. <strong>The implication is significant: by the time we know we're in Condition 1, the install season has started.</strong> The Collin role pivot toward production development on the Nites side (Section 3) would emerge mid-season as Labs ops capacity becomes available, rather than being pre-planned.
+  </div>
+</div>
+
+<div class="condition-card middle">
+  <div class="condition-label">Condition 2 · Plan Hits</div>
+  <div class="condition-title">Current 2026 Baseline</div>
+  <div class="condition-meta">
+    The published 2026 plan baseline. <strong>~$14M Nites + ~$2M Labs = ~$16M total. Labs at ~12% mix.</strong> ~20 Labs projects across the season, split roughly 50/50 between Tier A (full production, ~$150K avg, Labs Supervisor dedicated 1–2 weeks per project) and Tier B (specialty commercial pop-ups, ~$50K avg, Labs Supervisor required but parallelizable at 2 jobs/week comfortable).
+  </div>
+  <p style="font-size:13px; margin-bottom:8px;"><strong>What this looks like in the field:</strong> Labs supervisor function covered by Collin + Rainer + Erwin + AM help, no new dedicated supervisor hire needed. Producer role (the formal Labs Supervisor hire) is on the table but optional for 2026; lean target is 3–4 Labs-exclusive year-round FTE total (current 2 + producer + maybe second sales rep).</p>
+  <div class="condition-signal">
+    <strong>Signal you'd see by:</strong> End of September. Tier A commitments locked in and Tier B inbound steady through the early-season window. By end of September the picture is clear enough to staff the rest of the season with confidence.
+  </div>
+</div>
+
+<div class="condition-card">
+  <div class="condition-label">Condition 3 · Upside</div>
+  <div class="condition-title">Labs Grows Aggressively</div>
+  <div class="condition-meta">
+    Sales overperforms on Labs specifically. Gaylord expansion converts multiple properties; municipal RFP wins land; Tier B pop-ups close at 1.5–2× plan volume. <strong>Labs at 20–25% mix ($3–4M Labs revenue).</strong> ~35–40 Labs projects across the season; Tier A count alone doubles or more.
+  </div>
+  <p style="font-size:13px; margin-bottom:8px;"><strong>What this looks like in the field:</strong> Existing-leadership Labs supervisor coverage tops out. Need at peak 3–4 dedicated Labs Supervisors; leadership-team capacity (Collin + Rainer + Erwin) can no longer absorb the concurrency. Producer hire becomes a definite, not optional; second producer or AE may also be triggered. Equipment fleet planning becomes acute (more MEWPs / scissor lifts deployed simultaneously). AM cross-training into Labs supervision becomes a real lever.</p>
+  <div class="condition-signal">
+    <strong>Signal you'd see by:</strong> August. When the early-locking Tier A pipeline is visible. Lead time for a producer hire is real — if Condition 3 is materializing, the producer search would ideally have been kicked off by May/June, but August is the latest the org can commit to a Condition 3 staffing posture and still react in time.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SECTION 3 -->
+<div class="section-header">
+  <div class="section-num">3</div>
+  <div class="section-label">Seasonal Outlines per Position × Condition</div>
+</div>
+<h2>What Each Role Looks Like</h2>
+
+<p>For each of the 3 conditions, a paragraph-per-role sketch of what the 2026 season would look like. These are intentionally rough — the goal is to give the brainstorm a starting shape, not pre-decide who does what.</p>
+
+<p>The roles covered are Collin, Rainer, Holden, Jaime, and Mike. Erwin appears as a supporting figure in the supervisor-coverage discussion but is not a primary role-holder for this conversation.</p>
+
+<div class="callout callout-note no-break">
+  <div class="callout-title">A note on Collin's role</div>
+  Collin's position at Brite is <strong>a new role being developed</strong> — not an existing title. Functionally it splits into two seasonal modes: <strong>during the season</strong>, Collin runs Brite Labs operations (parallel to Mike's Operations Manager role for Nites). <strong>Off-season</strong>, Collin contributes to production development for both Labs and Nites — process improvement, training program build, cert pipeline maintenance, off-season project execution. Industry-adjacent comparators for context (not titles to assign): Director of Production Operations at an experiential design-build firm; Director of Field Training & Development at a seasonal-workforce field service company; Field Operations Manager with a training mandate at a multi-territory contractor. The exact shape of the role under each condition is part of what this brainstorm aims to define.
+</div>
+
+<div class="callout callout-note no-break">
+  <div class="callout-title">A note on Mike's role</div>
+  Mike is <strong>Operations Manager</strong> across all three conditions. Title and core scope don't shift — Nites operations leadership, three-branch coordination, the November-overlap orchestration. What shifts is how much Labs-branch attention his role demands and which sub-functions get co-led with Collin.
+</div>
+
+<div class="condition-block">
+  <h3>3.1 — Condition 1: Labs Doesn't Scale</h3>
+
+  <div class="role-outline collin">
+    <div class="role-name">Collin</div>
+    <p>Pre-season (May–August) starts with a split workload: half on Labs ops planning, half on production development for Nites — building the structured training program flagged in the 2025 retro as the #1 retention lever. By late September, when Condition 1 declares itself, the Labs ops side collapses to maintenance-mode and production development for Nites becomes the primary focus through the install season. Cert curriculum, AM-as-trainer programs, structured onboarding, and the hire-to-train handoff with Holden all sit here. The off-season production development for both entities continues into spring 2027. Operational placement within the broader org — how this role reports up and what it's formally called — is part of what the group needs to define.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Rainer</div>
+    <p>The Brite Labs Director title persists, but scope materially shrinks. Pre-season focus turns to diagnosing why pipeline missed (lead generation? close rate? specific verticals?) and considering pivots toward Brite Supply, Brite Base, or external partnerships as alternative growth vectors. During the season, Rainer oversees the few Labs jobs that do close + maintains client relationships to rebuild 2027 pipeline. The off-season AE shift (Cole / Santi) probably gets postponed or restructured.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Holden</div>
+    <p>Operational hiring lead, paired tightly with Collin's training role. Pre-season hiring waves stay the same: management (May–July), then installer Wave 1 cert-required (June–early September), Wave 2 bulk (late summer through October). Labs supervisor / producer recruiting falls off the list since those roles don't materialize. Mid-season backfill continues for residential demand. Off-season focus on capturing what the 2026 retention program proved out, and improving the hire-to-train handoff structurally.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Jaime</div>
+    <p>COO oversight. Pre-season validates the data flow (Brite Base aggregation, Salesforce integration). Once Condition 1 is confirmed, decides the budget for Collin's pivot — training program is investment, not free, and that conversation needs to happen before September if Collin's role is shifting. External / board narrative likely de-emphasizes Labs as a 2026 growth story; refocuses on Nites retention + LSEO + Brite Supply growth.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Mike</div>
+    <p>Operations Manager. Pre-season focused on TM + AM hiring (May–July) and aligning the training program rollout with Holden's hiring waves. Mid-season runs the broader Nites operation with the Labs branch quieter. Coordinates more closely with Collin during the season because the production development focus on Nites intersects directly with Mike's operational coordination of TMs and AMs. Year-end retro emphasizes what the structural training program changed about utilization and retention.</p>
+  </div>
+</div>
+
+<div class="condition-block">
+  <h3>3.2 — Condition 2: Plan Hits (Current 2026 Baseline)</h3>
+
+  <div class="role-outline collin">
+    <div class="role-name">Collin</div>
+    <p>Pre-season (May–August) covers Labs project execution planning, cert pipeline coordination with Holden, and supervisor staffing (existing leadership covers — no new producer hire). Sept–Dec runs Labs operations day-to-day, parallel to Mike's Nites operations role, with concurrency-management focus especially around the November overlap (residential peak + commercial decor wave). Training program continues as a side workstream in production development but is not the primary focus during install season. Off-season pivots back toward production development for both Labs and Nites — refining processes, building out cert programs, supporting Mike on operational improvements.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Rainer</div>
+    <p>Brite Labs Director. Pre-season focused on locking Tier A commitments (Gaylord properties, hotels, ski resorts) by July–August and building Tier B pipeline (bars, restaurants, business fronts) for fall close cycles. Coordinates the creative team (Sarah, Max, Matt) on concept-design phase for committed deals. During season, provides partial Labs supervisor coverage alongside Collin + Erwin + AM help. Cole/Santi off-season AE shift covers cross-motion sales support as planned.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Holden</div>
+    <p>Operational hiring lead. Pre-season: management hiring May–July (TMs, AMs), then installer recruiting Wave 1 cert-required and Wave 2 bulk timed for the November peak. Cert pipeline coordination with Collin — Brite funds lift cert and OSHA-10 for installers crossing into Tier A/B work. Labs supervisor recruiting is light (existing leadership coverage). Mid-season standard backfill operations. Off-season transition planning into 2027.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Jaime</div>
+    <p>COO oversight. Validates plan execution mid-season; reviews whether the published BEST/BETTER scenarios are tracking. Approves headcount budget at plan baseline (3–4 Labs-exclusive year-round + standard Nites seasonal funnel). Year-end retro is the lead deliverable into 2027 planning. Cross-functional alignment between Labs (Rainer) and Nites (Mike) lands with Jaime when conflicts arise.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Mike</div>
+    <p>Operations Manager. Pre-season focused on TM + AM hiring and operational planning. During season, runs Nites operations and coordinates with Collin on the Labs side, with both leads aligned on the November pinch. Partners with Holden on the bulk installer wave timing. The Labs ops footprint stays at Collin + Rainer with supervisor coverage drawing on Mike's broader operational team (Erwin, AM backup) as needed. Standard operational integration role.</p>
+  </div>
+</div>
+
+<div class="condition-block">
+  <h3>3.3 — Condition 3: Labs Grows Aggressively</h3>
+
+  <div class="role-outline collin">
+    <div class="role-name">Collin</div>
+    <p>Same role function as Condition 2 but scope expands materially during the season. Pre-season (May–June) includes hiring the producer (Labs Supervisor) with Rainer and Holden; possibly a second AE on the Rainer side. The producer reports up to Collin. Sept–Dec management of a larger Labs project portfolio — 35–40 projects rather than ~20 — with the producer handling day-to-day supervisor coverage and Collin focused on cross-project coordination, concurrency-management, and AM cross-training for backup supervision. Off-season production development for Nites likely contracts in this condition — handed off to a separate hire, partnership with Holden, or simply deferred — since Collin's bandwidth is consumed by Labs growth.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Rainer</div>
+    <p>Expanded pre-season includes hiring a second Labs AE, scaling asks against the creative team's capacity (Sarah/Max/Matt allocations need to grow), and coordinating with Sarah on higher concept-design throughput. Tier A wins locked early (May–July). During season, less hands-on supervision (handed off to producer hire) and more business-development time on 2027 pipeline. Higher external presence at Gaylord-tier accounts and emerging municipal partnerships. Off-season focus on building toward $5M+ Labs revenue for 2027.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Holden</div>
+    <p>Hiring scope expands. Add: producer search (kicked off May–June, lead time is real), possible second Labs AE, and a deeper cert pipeline for the larger Tier A/B installer cohort. AM cross-training program for Labs backup supervision becomes a hiring + training co-workstream that Holden runs with Collin (or with whoever inherits the training role). Mid-season operational pressure is real — recruiting at higher volume and across more role types.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Jaime</div>
+    <p>COO oversight, but more active on Labs investment thesis. Producer hire + possible second AE + equipment fleet capex decisions all need COO approval. Strategic conversations about whether to formalize a dedicated Labs P&L, given the growth trajectory and the implication of $4M+ Labs revenue against Brite-as-a-whole. External / board narrative leans into Labs as the growth story. Mid-year strategic review on 2027 Labs investment levels.</p>
+  </div>
+
+  <div class="role-outline">
+    <div class="role-name">Mike</div>
+    <p>Operations Manager. Onboarding the new producer is an additional pre-season focus (the producer reports to Collin but operationally integrates with Mike's broader Nites org for crew assignment). Mid-season concurrency-management at 3+ Labs supervisors at peak requires more active coordination with Collin's side. Equipment fleet planning (MEWPs, scissor lifts, towable booms) becomes a real workstream Mike either owns directly or delegates explicitly (Tony Gomez likely). Cross-coordination needs intensify because Labs is no longer a quiet adjacency; it's actively driving Nites crew assignment decisions at the AM level.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SECTION 4 -->
+<div class="section-header">
+  <div class="section-num">4</div>
+  <div class="section-label">Open Questions for the Meeting</div>
+</div>
+<h2>What This Brainstorm Needs to Put on the Table</h2>
+
+<p>Items below are the things this brainstorm needs to put on the table. None of these need to be resolved in one session — but each should at least surface and get an owner or follow-up step.</p>
+
+<div class="question-group">
+  <div class="question-group-title">Role definition</div>
+  <div class="question">
+    <span class="question-number">1</span>
+    <strong>Collin's role at Brite.</strong> The role we've been describing — Labs operations during the season, cross-entity production development off-season — isn't formally defined yet. The group needs to align on a title, scope, reporting line, and how the role flexes across the three conditions. If Condition 1 plays out, the role weight shifts toward production development for Nites; if Condition 3, it consolidates around Labs operations leadership at higher scale. Worth getting on the same page about what the role's center of gravity is and where it stretches.
+  </div>
+</div>
+
+<div class="question-group">
+  <div class="question-group-title">Data flow and tooling</div>
+  <div class="question">
+    <span class="question-number">2</span>
+    <strong>Brite Base aggregation.</strong> Per-job data exists; aggregated view doesn't. Group decision needed on whether to build a dashboard inside Brite Base, run periodic CSV exports, or hand-feed the constants. Recommendation for v1: periodic export refreshed quarterly. Owner of the export build is open.
+  </div>
+  <div class="question">
+    <span class="question-number">3</span>
+    <strong>Salesforce → calculator integration.</strong> Weekly export of all active deals with stage, record type, probability, value, territory, and install date is the proposed data shape. Need confirmation that this is operationally feasible and an owner for the build.
+  </div>
+  <div class="question">
+    <span class="question-number">4</span>
+    <strong>Tier tagging at deal creation.</strong> Explicit Tier A/B/C field on Labs deals (clean, longer to launch) vs. value-band inference in the calculator ($100K+ = A; $20–100K = B; &lt;$20K = C). Group call.
+  </div>
+  <div class="question">
+    <span class="question-number">5</span>
+    <strong>Noel Decor reporting state.</strong> Currently unclear; may need investment before the interior side of the model can be calibrated. Jaime has the broader view; group decides whether to invest now or accept the gap.
+  </div>
+  <div class="question">
+    <span class="question-number">6</span>
+    <strong>Labs pipeline numbers.</strong> Rough committed / probable / stretch project counts by tier and territory, with even gut-level confidence levels. Rainer's pipeline knowledge is the foundation; group reviews and discusses.
+  </div>
+</div>
+
+<div class="question-group">
+  <div class="question-group-title">Operational readiness</div>
+  <div class="question">
+    <span class="question-number">7</span>
+    <strong>AM cross-training as Labs supervisor backup.</strong> In Condition 2 this is light (one or two AMs picking up overflow). In Condition 3 it becomes a real workstream — formal cross-training of multiple AMs into Labs supervision so the producer hire isn't a single point of failure. When does the program start, who designs it, and at what cost?
+  </div>
+  <div class="question">
+    <span class="question-number">8</span>
+    <strong>Lift cert pipeline budget.</strong> Brite-funded per earlier decision. Open: per-installer cert cost, who owns the program (Collin? Holden? a vendor relationship), how it integrates with the recruiting calendar's Wave 1 (cert-required installers ready by early September).
+  </div>
+</div>
+
+<div class="question-group">
+  <div class="question-group-title">Triggers and signals</div>
+  <div class="question">
+    <span class="question-number">9</span>
+    <strong>Condition signal dates.</strong> The proposal: Condition 1 confirmable by late September, Condition 2 by end of September, Condition 3 by August. Group should sanity-check these against how Salesforce pipeline visibility actually evolves through summer; later signals mean longer maintained optionality, which is expensive.
+  </div>
+  <div class="question">
+    <span class="question-number">10</span>
+    <strong>Producer hire trigger.</strong> Latest the producer search could start and still meet a Condition 3 staffing posture: May–June. If the August signal is the gating moment, the producer search has to be pre-emptive — meaning the group has to make a Condition 3 readiness commitment before knowing for sure. How much pre-emptive cost is the group willing to absorb?
+  </div>
+</div>
+
+<div class="deferred-list">
+  <div class="deferred-title">Deferred to future conversations (flagged for visibility)</div>
+  <ul>
+    <li><strong>Per-territory layer</strong> — each of the 14 territories has its own capacity, season length, and headcount needs. Once the general framework is stable, the model gets a third dimension here. Probably its own dedicated meeting.</li>
+    <li><strong>Permanent smart lighting installs</strong> — bracketed as a separate entity for this model. Worth raising at a follow-up meeting once Labs and Nites operational interplay is well-defined.</li>
+    <li><strong>Equipment fleet planning</strong> — MEWPs, scissor lifts, towable booms. Capex scales with Labs Tier A/B growth (acute under Condition 3). Belongs in its own workstream, likely with Tony Gomez owning.</li>
+    <li><strong>Long-term Labs Supervisor / producer dedicated hires</strong> — beyond 2026, as Labs concurrency grows past 3-person leadership capacity, dedicated hires become non-optional. Worth a 2027 planning conversation.</li>
+    <li><strong>Noel Decor scope and structure</strong> — handled outside this brainstorm; Jaime has the picture.</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>
